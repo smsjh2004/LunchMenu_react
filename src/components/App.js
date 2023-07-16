@@ -1,0 +1,95 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect, useState } from "react";
+import { FoodListModal } from "./FoodListModal";
+import { Button } from "react-bootstrap";
+import foods from "./foodData.json";
+import "./App.css";
+
+function App() {
+  const [todayMenu, setTodayMenu] = useState("");
+  const [excludedCategories, setExcludedCategories] = useState([]);
+
+  const handleFilter = (category) => {
+    if (excludedCategories.includes(category)) {
+      const updatedCategories = excludedCategories.filter((c) => c !== category);
+      setExcludedCategories(updatedCategories);
+    } else {
+      const updatedCategories = [...excludedCategories, category];
+      setExcludedCategories(updatedCategories);
+    }
+  };
+
+  const filteredFoods = foods.filter(
+    (data) => !excludedCategories.includes(data.category)
+  );
+  console.log(filteredFoods)
+
+  const handleClick = () => {
+    if (filteredFoods.length === 0) {
+      alert("전부 체크되어 있습니다. (메뉴 없음)");
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * filteredFoods.length);
+    const selectedMenu = filteredFoods[randomIndex].menu;
+    setTodayMenu(selectedMenu);
+  };
+
+  useEffect(() => {
+    if (filteredFoods.length === 0) {
+      alert("전부 체크되어 있습니다. (메뉴 없음)");
+      setExcludedCategories([]);
+    }
+  }, [filteredFoods, setExcludedCategories]);
+
+  // modal 코드
+  const [showMenuList, setShowMenuList] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowMenuList(!showMenuList);
+  };
+
+  const handleCloseModal = () => {
+    setShowMenuList(false);
+  };
+
+  // 코드 줄이기
+  const catecory = ["한식", "일식", "중식", "양식"];
+  
+  return (
+    <div id="lunch_box">
+      <div id="lunch_wrap">
+        <h1>점심뽑기</h1>
+        <div>
+          <Button onClick={handleClick} style={{ margin: "10px" }}>누르시오</Button>
+          <Button onClick={handleButtonClick}>
+            {showMenuList ? "메뉴 숨기기" : "메뉴 보기"}
+          </Button>
+        </div>
+        {showMenuList && (
+          <FoodListModal show={showMenuList} onClose={handleCloseModal} filteredFoods={filteredFoods}/>
+        )}
+
+        <div style={{ display: 'flex' }}>
+          {catecory.map((_, idx) => {
+            console.log(catecory[idx])
+            return (
+              <label style={{ marginRight: "10px" }}>
+                {catecory[idx]} 제외
+                <input
+                  type="checkbox"
+                  checked={excludedCategories.includes(catecory[idx])}
+                  onChange={() => handleFilter(catecory[idx])}
+                />
+              </label>
+            )
+          })}
+        </div>
+
+        <h2>{todayMenu}</h2>
+      </div>
+    </div>
+  );
+}
+
+export default App;
