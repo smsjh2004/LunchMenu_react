@@ -7,6 +7,7 @@ import "./App.css";
 
 function App() {
   const [todayMenu, setTodayMenu] = useState("");
+  const [todayCategory, setTodayCategory] = useState("");
   const [excludedCategories, setExcludedCategories] = useState([]);
 
   const handleFilter = (category) => {
@@ -32,7 +33,9 @@ function App() {
 
     const randomIndex = Math.floor(Math.random() * filteredFoods.length);
     const selectedMenu = filteredFoods[randomIndex].menu;
+    const selectedCategory = filteredFoods[randomIndex].category;
     setTodayMenu(selectedMenu);
+    setTodayCategory(selectedCategory);
   };
 
   useEffect(() => {
@@ -60,33 +63,32 @@ function App() {
     <div id="lunch_box">
       <div id="lunch_wrap">
         <h1>점심뽑기</h1>
-        <div>
-          <Button onClick={handleClick} style={{ margin: "10px" }}>누르시오</Button>
-          <Button onClick={handleButtonClick}>
+        <div className="button-container">
+          <Button variant="primary" onClick={handleClick}>누르시오</Button>
+          <Button variant="secondary" onClick={handleButtonClick}>
             {showMenuList ? "메뉴 숨기기" : "메뉴 보기"}
           </Button>
         </div>
         {showMenuList && (
           <FoodListModal show={showMenuList} onClose={handleCloseModal} filteredFoods={filteredFoods}/>
         )}
-
-        <div style={{ display: 'flex' }}>
-          {catecory.map((_, idx) => {
-            console.log(catecory[idx])
-            return (
-              <label style={{ marginRight: "10px" }}>
-                {catecory[idx]} 제외
-                <input
-                  type="checkbox"
-                  checked={excludedCategories.includes(catecory[idx])}
-                  onChange={() => handleFilter(catecory[idx])}
-                />
-              </label>
-            )
-          })}
+  
+        <div className="category-container">
+          {catecory.map((category) => (
+            <label className="category-label" key={category}>
+              {category} 제외
+              <input
+                type="checkbox"
+                checked={excludedCategories.includes(category)}
+                onChange={() => handleFilter(category)}
+              />
+            </label>
+          ))}
         </div>
-
-        <h2>{todayMenu}</h2>
+  
+        <div className="menu-container">
+          <h2 className="menu">{todayMenu} ({todayCategory})</h2>
+        </div>
       </div>
     </div>
   );
