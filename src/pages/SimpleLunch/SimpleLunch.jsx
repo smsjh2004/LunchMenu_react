@@ -4,6 +4,8 @@ import { SimpleLunchMenuModal } from "./SimpleLunchMenuModal";
 import { Button } from "react-bootstrap";
 import foods from "../../foodData.json";
 import "./SimpleLunch.css";
+import { styles } from "../css/SimpleLunch.css";
+import { HamButton } from './HamButton';
 
 export function SimpleLunch() {
   const [todayMenu, setTodayMenu] = useState("");
@@ -61,6 +63,8 @@ export function SimpleLunch() {
   
   return (
     <div id="lunch_box">
+
+      <HamButton />
       <div id="lunch_wrap">
         <h1>심플점심뽑기</h1>
         <div className="button-container">
