@@ -7,6 +7,7 @@ import { ChatBot } from './pages/ChatBot/ChatBot';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  console.log('개병신 신민성');
   return (
     <BrowserRouter>
     <div className="App">
