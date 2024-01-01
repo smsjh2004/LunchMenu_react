@@ -1,0 +1,52 @@
+/* 햄버거 버튼 */
+.ham-button{
+    width: 50px;
+    height: 30px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.hamber-bar{
+    width: 100%;
+    height: 10px; 
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+/* side_bar */
+.side-bar{
+    position: absolute;
+    top: 0;
+    background-color: #000;
+    width: 30%;
+    height: 100vh;
+    transition: 1s;
+}
+.hide-btn{
+    font-size: 100px;
+    font-weight: 700;
+    color: #fff;
+}
+.title{
+    text-align: center;
+    font-size: 70px;
+    color: #fff;
+
+}
+.buttons-sidebar{
+    background-color: #000 !important;
+    border: none !important;
+    width: 80%;
+    margin-bottom: 10px;
+}
+.buttons-sidebar:hover{
+    border: none;
+    background-color: #000;
+}
+.buttons-sidebar.on{
+    color: red !important;
+}
+.button-box{
+    width: 80%;
+    margin: auto;
+}
