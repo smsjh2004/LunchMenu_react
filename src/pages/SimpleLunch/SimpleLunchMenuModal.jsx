@@ -1,11 +1,11 @@
 import { Modal, Button } from "react-bootstrap";
 
-export function FoodListModal({ show, onClose, filteredFoods }) {
+export function SimpleLunchMenuModal({ show, onClose, filteredFoods }) {
 
   return (
     <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>점심뽑기 메뉴 리스트 {`${filteredFoods.length}`}개</Modal.Title>
+        <Modal.Title>심플점심뽑기 메뉴 리스트 {`${filteredFoods.length}`}개</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>

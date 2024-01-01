@@ -1,11 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from "react";
-import { FoodListModal } from "./FoodListModal";
+import { SimpleLunchMenuModal } from "./SimpleLunchMenuModal";
 import { Button } from "react-bootstrap";
-import foods from "./foodData.json";
-import "./App.css";
+import foods from "../../foodData.json";
+import "./SimpleLunch.css";
 
-function App() {
+export function SimpleLunch() {
   const [todayMenu, setTodayMenu] = useState("");
   const [todayCategory, setTodayCategory] = useState("");
   const [excludedCategories, setExcludedCategories] = useState([]);
@@ -62,7 +62,7 @@ function App() {
   return (
     <div id="lunch_box">
       <div id="lunch_wrap">
-        <h1>점심뽑기</h1>
+        <h1>심플점심뽑기</h1>
         <div className="button-container">
           <Button variant="primary" onClick={handleClick}>누르시오</Button>
           <Button variant="secondary" onClick={handleButtonClick}>
@@ -70,7 +70,7 @@ function App() {
           </Button>
         </div>
         {showMenuList && (
-          <FoodListModal show={showMenuList} onClose={handleCloseModal} filteredFoods={filteredFoods}/>
+          <SimpleLunchMenuModal show={showMenuList} onClose={handleCloseModal} filteredFoods={filteredFoods}/>
         )}
   
         <div className="category-container">
@@ -93,5 +93,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
