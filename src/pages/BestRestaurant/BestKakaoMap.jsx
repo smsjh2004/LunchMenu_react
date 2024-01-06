@@ -94,6 +94,6 @@ export function BestKakaoMap({ searchPlace }) {
 
 
     return (
-        <div id="map" style={{ width: "100%", maxWidth: 750, height: 500, margin: 0, margin: "auto" }}></div>
+        <div id="map" style={{ width: "100%", maxWidth: 750, height: 500, margin: 0, margin: "auto"}}></div>
     )
 }

@@ -12,6 +12,7 @@
     height: 10px; 
     margin-bottom: 10px;
     background-color: #000;
+    z-index: -1;
 }
 
 /* side_bar */
@@ -27,6 +28,7 @@
     font-weight: 700;
     color: #fff;
     margin-left: 20px;
+    cursor: pointer;
 }
 .title{
     text-align: center;

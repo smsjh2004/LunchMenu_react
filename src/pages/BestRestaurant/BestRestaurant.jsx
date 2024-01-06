@@ -3,12 +3,20 @@ import { HamButton } from "../SimpleLunch/HamButton"
 import { BestKakaoMap } from "./BestKakaoMap"
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { LocationURL } from '../../core/Api';
+import { LocationURL, LocationURL2 } from '../../core/Api';
 
 export function BestRestaurant() {
-    const [InputText, setInputText] = useState('')
-    const [Place, setPlace] = useState('')
-    const [location, setLocation] = useState('')
+    const [InputText, setInputText] = useState('');
+    const [Place, setPlace] = useState('');
+    const [location_CTP, setLocation_CTP] = useState('');
+    const [location_SIG, setLocation_SIG] = useState('');
+
+    // 도 데이터
+    const [locationCTPData, setLocationCTPData] = useState([]);
+    // 동 데이터
+    const [locationSIGData, setLocationSIGData] = useState([]);
+
+
   
     const onChange = (e) => {
       setInputText(e.target.value)
@@ -16,33 +24,67 @@ export function BestRestaurant() {
   
     const handleSubmit = (e) => {
       e.preventDefault()
-      if(!location) {
-        setPlace(`${location}${InputText}` );
-      } else {
-        setPlace(InputText)
+      if(location_SIG === "") {
+        setPlace(`${location_CTP} ${InputText}`);
+        console.log("1번")
+      } else if (location_SIG !== "no"){
+        setPlace(`${location_SIG} ${InputText}`);
+        console.log("2번")
       }
       setInputText('')
     }
 
+    const locationFilter = locationSIGData.filter((item) => item.includes(location_CTP))
+
     useEffect(() => {
-      axios.get(`${LocationURL}`).then((res) => {
-        console.log(res)
-      }).catch((error) => console.log("error", error))
+      async function fetchData() {
+        const data = await axios.get(`${LocationURL}`);
+        const data2 = await axios.get(`${LocationURL2}`);
+        try{
+          setLocationCTPData(data.data.response.result.featureCollection.features.map(item => item.properties.ctp_kor_nm));
+          setLocationSIGData(data2.data.response.result.featureCollection.features.map(item => item.properties.full_nm));
+        } catch(error) {
+          console.error(error)
+        }
+      }
+      fetchData()
+    }, []);
 
-      // fetch({url: `/api/req/data?key=20B7CC35-174B-39C4-AB85-75001F1D7962&domain=http://localhost:3000&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIDO_INFO`, method: "get"}).then((res) => console.log(res))
-    })
+    useEffect(() => {
+      if(location_SIG === "" || location_SIG === "no") {
+        setLocation_SIG('')
+      }
 
+      if(location_CTP === "no" || location_CTP === "") {
+        setLocation_CTP('')
+      }
+        console.log("hi22222")
+
+    }, [location_CTP, location_SIG])
+
+    console.log("location:::", location_CTP, "Place:::", Place, "location_SIG", location_SIG)
+    // console.log(locationFilter)
+    
   return (
     <div>
       <HamButton currectPage={3} />
       <div style={{ textAlign: "center" }}>
         <h1>맛집 추천 페이지</h1>
         <div style={{ width: 350, margin: 0, margin: "auto", marginBottom: 20 }}>
-          <Form.Select aria-label="Default select example" onChange={(e) => setLocation(e.target.value)}>
-            <option>지역을 선택해주세요(기본값 전국)</option>
-            <option value="화성시" >화성시</option>
-            <option value="안양시">안양시</option>
-            <option value="수원시">수원시</option>
+          <Form.Select aria-label="Default select example" onChange={(e) => setLocation_CTP(e.target.value)}>
+          <option value={"no"}>전국</option>
+            {locationCTPData.map((item, idx) => 
+              <option value={item} key={idx}>{item}</option>
+            )}
+          </Form.Select>
+        </div>
+
+        <div style={{ width: 350, margin: 0, margin: "auto", marginBottom: 20 }}>
+          <Form.Select aria-label="Default select example" onChange={(e) => setLocation_SIG(e.target.value)} disabled={!location_CTP || location_CTP === "no"}>
+          <option value={"no"}>시/군/구</option>
+            {locationFilter.map((item, idx) => 
+              <option value={item} key={idx}>{item}</option>
+            )}
           </Form.Select>
         </div>
 
