@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import "../css/HamButton.css";
 import Button from 'react-bootstrap/Button';
+import "../css/HamButton.css";
 
 export function HamButton({ currectPage }) {
     const GoUrl = [
@@ -11,6 +11,7 @@ export function HamButton({ currectPage }) {
      ]
      const [hideBtn , setHideBtn] = useState(false);
      const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+     const responsiveSidebar = innerWidth < 850 && innerWidth > 710 ? "60%" : innerWidth < 709 ? "100%" : innerWidth < 1400 && innerWidth > 851 ? "50%" : "20%";
 
      useEffect(() => {
        const resizeListener = () => {
@@ -19,15 +20,15 @@ export function HamButton({ currectPage }) {
        window.addEventListener("resize", resizeListener);
      });
 
-     const responsiveSidebar = innerWidth < 850 && innerWidth > 710 ? "60%" : innerWidth < 709 ? "100%" : innerWidth < 1400 && innerWidth > 851 ? "50%" : "20%";
-
     return(
-        <div>
-            <span className='ham-button' onClick={() =>setHideBtn(true)}>
-                <div className='hamber-bar'></div>
-                <div className='hamber-bar'></div>
-                <div className='hamber-bar'></div>
-            </span>
+        <div >
+            <div style={{ width: 100, height: 100}}>
+                <span className='ham-button' onClick={() =>setHideBtn(true)}>
+                    <div className='hamber-bar'></div>
+                    <div className='hamber-bar'></div>
+                    <div className='hamber-bar'></div>
+                </span>
+            </div>
             <span className="side-bar" style={{ left: !hideBtn ? "-100%" : 0, width: responsiveSidebar }}>
                 <div className="hide-btn" onClick={() => setHideBtn(false)}>X</div>
                 <div className="title">점심뽑기</div>
@@ -39,7 +40,5 @@ export function HamButton({ currectPage }) {
                 </div>
             </span>
         </div>
-
-        
     )    
 }

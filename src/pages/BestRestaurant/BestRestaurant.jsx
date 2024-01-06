@@ -1,8 +1,8 @@
-import Form from 'react-bootstrap/Form';
-import { HamButton } from "../SimpleLunch/HamButton"
-import { BestKakaoMap } from "./BestKakaoMap"
 import React, { useEffect, useState } from 'react'
+import Form from 'react-bootstrap/Form';
 import axios from 'axios';
+import { BestKakaoMap } from "./BestKakaoMap"
+import { HamButton } from "../SimpleLunch/HamButton"
 import { LocationURL, LocationURL2 } from '../../core/Api';
 
 export function BestRestaurant() {
@@ -10,31 +10,26 @@ export function BestRestaurant() {
     const [Place, setPlace] = useState('');
     const [location_CTP, setLocation_CTP] = useState('');
     const [location_SIG, setLocation_SIG] = useState('');
-
     // 도 데이터
     const [locationCTPData, setLocationCTPData] = useState([]);
     // 동 데이터
     const [locationSIGData, setLocationSIGData] = useState([]);
-
-
   
     const onChange = (e) => {
-      setInputText(e.target.value)
+      setInputText(e.target.value);
     }
   
     const handleSubmit = (e) => {
       e.preventDefault()
       if(location_SIG === "") {
         setPlace(`${location_CTP} ${InputText}`);
-        console.log("1번")
       } else if (location_SIG !== "no"){
         setPlace(`${location_SIG} ${InputText}`);
-        console.log("2번")
       }
-      setInputText('')
+      setInputText('');
     }
 
-    const locationFilter = locationSIGData.filter((item) => item.includes(location_CTP))
+    const locationFilter = locationSIGData.filter((item) => item.includes(location_CTP));
 
     useEffect(() => {
       async function fetchData() {
@@ -44,10 +39,10 @@ export function BestRestaurant() {
           setLocationCTPData(data.data.response.result.featureCollection.features.map(item => item.properties.ctp_kor_nm));
           setLocationSIGData(data2.data.response.result.featureCollection.features.map(item => item.properties.full_nm));
         } catch(error) {
-          console.error(error)
+          console.error(error);
         }
       }
-      fetchData()
+      fetchData();
     }, []);
 
     useEffect(() => {
@@ -58,13 +53,9 @@ export function BestRestaurant() {
       if(location_CTP === "no" || location_CTP === "") {
         setLocation_CTP('')
       }
-        console.log("hi22222")
 
-    }, [location_CTP, location_SIG])
+    }, [location_CTP, location_SIG]);
 
-    console.log("location:::", location_CTP, "Place:::", Place, "location_SIG", location_SIG)
-    // console.log(locationFilter)
-    
   return (
     <div>
       <HamButton currectPage={3} />
@@ -88,8 +79,8 @@ export function BestRestaurant() {
           </Form.Select>
         </div>
 
-        <input placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
-        <button type="submit" onClick={handleSubmit}>검색</button>
+        <input placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} style={{ marginBottom: 20, borderRadius: "0.375rem", borderWidth: 1,borderColor: "gray"}} />
+        <button type="submit" onClick={handleSubmit}  style={{ marginLeft: 10, borderRadius: "0.375rem", borderWidth: 1}}>검색</button>
       </div>
       <BestKakaoMap searchPlace={Place} />
     </div>

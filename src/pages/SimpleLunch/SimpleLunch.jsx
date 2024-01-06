@@ -1,11 +1,10 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from "react";
-import { SimpleLunchMenuModal } from "./SimpleLunchMenuModal";
 import { Button } from "react-bootstrap";
+import { SimpleLunchMenuModal } from "./SimpleLunchMenuModal";
+import { HamButton } from './HamButton';
 import foods from "../../foodData.json";
 import "./SimpleLunch.css";
-import { styles } from "../css/SimpleLunch.css";
-import { HamButton } from './HamButton';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function SimpleLunch() {
   const [todayMenu, setTodayMenu] = useState("");

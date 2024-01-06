@@ -1,7 +1,6 @@
 import { Modal, Button } from "react-bootstrap";
 
 export function SimpleLunchMenuModal({ show, onClose, filteredFoods }) {
-
   return (
     <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton>
