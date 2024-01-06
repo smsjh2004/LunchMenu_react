@@ -64,7 +64,7 @@ export function SimpleLunch() {
   return (
     <div id="lunch_box">
 
-      <HamButton />
+      <HamButton currectPage={1}/>
       <div id="lunch_wrap">
         <h1>심플점심뽑기</h1>
         <div className="button-container">

@@ -9,16 +9,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <BrowserRouter>
-    <div className="App">
-      <Routes>
-        <Route path="/Lunch" element={<MainPage />} />
-        <Route path="/Lunch/BestRestaurant" element={<BestRestaurant />} />
-        <Route path="/Lunch/SimpleLunch" element={<SimpleLunch />} />
-        <Route path="/Lunch/NearRestaurant" element={<NearRestaurant />} />
-        <Route path="/Lunch/ChatBot" element={<ChatBot />} />
-      </Routes>
-    </div>
-  </BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/Lunch" element={<MainPage />} />
+          <Route path="/Lunch/BestRestaurant" element={<BestRestaurant />} />
+          <Route path="/Lunch/SimpleLunch" element={<SimpleLunch />} />
+          <Route path="/Lunch/NearRestaurant" element={<NearRestaurant />} />
+          <Route path="/Lunch/ChatBot" element={<ChatBot />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   )
 }
 

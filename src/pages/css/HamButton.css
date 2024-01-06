@@ -5,12 +5,13 @@
     position: absolute;
     top: 20px;
     left: 20px;
+    cursor: pointer;
 }
 .hamber-bar{
     width: 100%;
     height: 10px; 
     margin-bottom: 10px;
-    background-color: #fff;
+    background-color: #000;
 }
 
 /* side_bar */
@@ -18,20 +19,19 @@
     position: absolute;
     top: 0;
     background-color: #000;
-    width: 30%;
     height: 100vh;
-    transition: 1s;
+    transition: 1.5s;
 }
 .hide-btn{
     font-size: 100px;
     font-weight: 700;
     color: #fff;
+    margin-left: 20px;
 }
 .title{
     text-align: center;
     font-size: 70px;
     color: #fff;
-
 }
 .buttons-sidebar{
     background-color: #000 !important;
@@ -42,9 +42,6 @@
 .buttons-sidebar:hover{
     border: none;
     background-color: #000;
-}
-.buttons-sidebar.on{
-    color: red !important;
 }
 .button-box{
     width: 80%;
