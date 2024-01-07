@@ -80,7 +80,7 @@ export function BestKakaoMap({ searchPlace }) {
                 infowindow.open(map, marker)
             })
         }
-    }, [kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, searchPlace])
+    }, [kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.ERROR, kakao.maps.services.Status.OK, kakao.maps.services.Status.ZERO_RESULT, searchPlace])
 
 
     return (
