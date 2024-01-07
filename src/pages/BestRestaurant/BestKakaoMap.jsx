@@ -38,9 +38,14 @@ export function BestKakaoMap({ searchPlace }) {
             displayMarker(locPosition, message);
         }
 
-        const ps = new kakao.maps.services.Places()
+        const ps = new kakao.maps.services.Places(map);
+        searchPlaces();
 
-        ps.keywordSearch(searchPlace, placesSearchCB)
+        function searchPlaces() {
+            ps.keywordSearch(searchPlace, placesSearchCB, {
+                category_group_code: "FD6"
+            } );
+        }
 
         function placesSearchCB(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
@@ -52,31 +57,16 @@ export function BestKakaoMap({ searchPlace }) {
                 }
 
                 map.setBounds(bounds)
+            }else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+                alert('검색 결과가 존재하지 않습니다.');
+                return;
+            } else if (status === kakao.maps.services.Status.ERROR) {
+                alert('검색 결과 중 오류가 발생했습니다.');
+                return;
             }
+
         }
 
-        // function displayMarker(locPosition, message) {
-
-        //     // 마커를 생성합니다
-        //     var marker = new kakao.maps.Marker({  
-        //         map: map, 
-        //         position: locPosition
-        //     }); 
-
-        //     var iwContent = message, // 인포윈도우에 표시할 내용
-        //         iwRemoveable = true;
-
-        //     // 인포윈도우를 생성합니다
-        //     var infowindow = new kakao.maps.InfoWindow({
-        //         content : iwContent,
-        //         removable : iwRemoveable
-        //     });
-
-        //     // 인포윈도우를 마커위에 표시합니다 
-        //     infowindow.open(map, marker);
-
-        //     // 지도 중심좌표를 접속위치로 변경합니다
-        // }  
         function displayMarker(place) {
             let marker = new kakao.maps.Marker({
                 map: map,
