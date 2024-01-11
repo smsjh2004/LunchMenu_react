@@ -22,6 +22,7 @@
     background-color: #000;
     height: 100vh;
     transition: 1.5s;
+    z-index: 1000;
 }
 .hide-btn{
     font-size: 100px;
