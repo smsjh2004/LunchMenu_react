@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { TfiMenu } from "react-icons/tfi";
 import Button from 'react-bootstrap/Button';
 import "../css/HamButton.css";
 
@@ -24,9 +25,7 @@ export function HamButton({ currectPage }) {
         <div >
             <div style={{ width: 100, height: 100}}>
                 <span className='ham-button' onClick={() =>setHideBtn(true)}>
-                    <div className='hamber-bar'></div>
-                    <div className='hamber-bar'></div>
-                    <div className='hamber-bar'></div>
+                    <TfiMenu size={50} />
                 </span>
             </div>
             <span className="side-bar" style={{ left: !hideBtn ? "-100%" : 0, width: responsiveSidebar }}>
