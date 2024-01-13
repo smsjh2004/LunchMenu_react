@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export function NearKakaoMap({ list, setList }) {
     const { kakao } = window;
-
+    console.log(list)
     useEffect(() => {
         const container = document.getElementById('map');
         const options = {
@@ -46,8 +46,8 @@ export function NearKakaoMap({ list, setList }) {
                     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
                 }
                 map.setBounds(bounds);
-                setList(data.map((item) => item.place_name));
-                // setList(data)
+                // setList(data.map((item) => item.place_name));
+                setList(data)
             }
         }
 
