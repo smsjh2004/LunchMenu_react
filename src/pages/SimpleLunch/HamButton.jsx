@@ -34,7 +34,7 @@ export function HamButton({ currectPage }) {
                 <div className="button-box">
                     <Button className="buttons-sidebar" style={{ color: currectPage === 1 ? "red" : "white"}} href={GoUrl[0]} >심플메뉴뽑기</Button>
                     <Button className="buttons-sidebar" style={{ color: currectPage === 2 ? "red" : "white"}} href={GoUrl[1]}>주변식당뽑기</Button>
-                    <Button className="buttons-sidebar" style={{ color: currectPage === 3 ? "red" : "white"}} href={GoUrl[2]}>맛집 추천</Button>
+                    <Button className="buttons-sidebar" style={{ color: currectPage === 3 ? "red" : "white"}} href={GoUrl[2]}>맛집 검색 (추천)</Button>
                     <Button className="buttons-sidebar" style={{ color: currectPage === 4 ? "red" : "white"}} href={GoUrl[3]}>점심뽑기챗봇</Button>
                 </div>
             </span>

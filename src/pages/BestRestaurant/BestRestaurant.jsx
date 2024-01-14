@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Form from 'react-bootstrap/Form';
+import { getCTPAPI, getSIGAPI } from '../../core/Api';
 import { BestKakaoMap } from "./BestKakaoMap"
 import { HamButton } from "../SimpleLunch/HamButton"
-import { getCTPAPI, getSIGAPI } from '../../core/Api';
 import { LocationSelector } from './LocationSelector';
 
 export function BestRestaurant() {
@@ -16,6 +15,7 @@ export function BestRestaurant() {
     const [locationSIGData, setLocationSIGData] = useState([]);
     // 읍면 데이터
     // const [locationADRIData, setLocationADRIData] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
 
     const onChange = (e) => {
       setInputText(e.target.value);
@@ -64,12 +64,13 @@ export function BestRestaurant() {
 
     }, [location_CTP, location_SIG]);
 
+    console.log(searchResults.map((item) => item.place_name))
 
   return (
     <div>
       <HamButton currectPage={3} />
       <div style={{ textAlign: "center" }}>
-        <h1>맛집 추천 페이지</h1>
+        <h1>맛집 검색 (추천) 페이지</h1>
         <LocationSelector 
           data={locationCTPData} 
           setData={(e) => setLocation_CTP(e.target.value)} 
@@ -95,7 +96,15 @@ export function BestRestaurant() {
           검색
         </button>
       </div>
-      <BestKakaoMap searchPlace={Place} />
+      {/* <div>
+      {searchResults.map((item) => {
+            return (
+              <h1>{item.place_name}</h1>
+            )
+          })}
+      </div> */}
+
+      <BestKakaoMap searchPlace={Place} searchResults={searchResults} setSearchResults={setSearchResults}/>
     </div>
   )
 }
