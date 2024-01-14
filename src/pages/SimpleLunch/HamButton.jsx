@@ -22,8 +22,8 @@ export function HamButton({ currectPage }) {
 
     return(
         <div >
-            <div style={{ width: 100, height: 100}}>
-                <span className='ham-button' onClick={() =>setHideBtn(true)}>
+            <div className="ham-button-box" style={{ width: 100, height: 100}}  onClick={() =>setHideBtn(true)}>
+                <span className='ham-button'>
                     <div className='hamber-bar'></div>
                     <div className='hamber-bar'></div>
                     <div className='hamber-bar'></div>

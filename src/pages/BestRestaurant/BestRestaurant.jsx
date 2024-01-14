@@ -4,6 +4,7 @@ import { BestKakaoMap } from "./BestKakaoMap"
 import { HamButton } from "../SimpleLunch/HamButton"
 import { getCTPAPI, getSIGAPI } from '../../core/Api';
 import { LocationSelector } from './LocationSelector';
+import { styles } from '../css/BestRestaurant.css';
 
 export function BestRestaurant() {
     const [InputText, setInputText] = useState('');
@@ -16,6 +17,12 @@ export function BestRestaurant() {
     const [locationSIGData, setLocationSIGData] = useState([]);
     // 읍면 데이터
     // const [locationADRIData, setLocationADRIData] = useState([]);
+
+    const handleOnKeyPress = e => {
+      if (e.key === 'Enter') {
+        handleSubmit(e);
+      }
+    };
 
     const onChange = (e) => {
       setInputText(e.target.value);
@@ -83,6 +90,7 @@ export function BestRestaurant() {
         />
         <input 
           placeholder="키워드를 입력하세요" 
+          onKeyPress={handleOnKeyPress}
           onChange={onChange} 
           value={InputText} 
           style={{ marginBottom: 20, borderRadius: "0.375rem", borderWidth: 1,borderColor: "gray"}} 
