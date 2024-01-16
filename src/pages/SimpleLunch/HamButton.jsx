@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { TfiMenu } from "react-icons/tfi";
 import Button from 'react-bootstrap/Button';
 import "../css/HamButton.css";
 
@@ -22,11 +23,9 @@ export function HamButton({ currectPage }) {
 
     return(
         <div >
-            <div className="ham-button-box" style={{ width: 100, height: 100}}  onClick={() =>setHideBtn(true)}>
-                <span className='ham-button'>
-                    <div className='hamber-bar'></div>
-                    <div className='hamber-bar'></div>
-                    <div className='hamber-bar'></div>
+            <div style={{ width: 100, height: 100}}>
+                <span className='ham-button' onClick={() =>setHideBtn(true)}>
+                    <TfiMenu size={50} />
                 </span>
             </div>
             <span className="side-bar" style={{ left: !hideBtn ? "-100%" : 0, width: responsiveSidebar }}>
@@ -35,7 +34,7 @@ export function HamButton({ currectPage }) {
                 <div className="button-box">
                     <Button className="buttons-sidebar" style={{ color: currectPage === 1 ? "red" : "white"}} href={GoUrl[0]} >심플메뉴뽑기</Button>
                     <Button className="buttons-sidebar" style={{ color: currectPage === 2 ? "red" : "white"}} href={GoUrl[1]}>주변식당뽑기</Button>
-                    <Button className="buttons-sidebar" style={{ color: currectPage === 3 ? "red" : "white"}} href={GoUrl[2]}>맛집 추천</Button>
+                    <Button className="buttons-sidebar" style={{ color: currectPage === 3 ? "red" : "white"}} href={GoUrl[2]}>맛집 검색 (추천)</Button>
                     <Button className="buttons-sidebar" style={{ color: currectPage === 4 ? "red" : "white"}} href={GoUrl[3]}>점심뽑기챗봇</Button>
                 </div>
             </span>
