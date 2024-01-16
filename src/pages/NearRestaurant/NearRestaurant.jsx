@@ -24,8 +24,11 @@ export function NearRestaurant() {
       }, [place])
       const handleSearch = () => {
         const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`;
-        console.log("dafsfdasdfasfdsd",googleSearchUrl)
+        if(place !== undefined) {
             window.open(googleSearchUrl);
+        } else {
+            alert("가게를 뽑아주세요")
+        }
       };
 
     return (
