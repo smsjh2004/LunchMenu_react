@@ -3,7 +3,6 @@ import { getCTPAPI, getSIGAPI } from '../../core/Api';
 import { BestKakaoMap } from "./BestKakaoMap"
 import { HamButton } from "../SimpleLunch/HamButton"
 import { LocationSelector } from './LocationSelector';
-import { styles } from '../css/BestRestaurant.css';
 
 export function BestRestaurant() {
     const [InputText, setInputText] = useState('');
@@ -58,7 +57,15 @@ export function BestRestaurant() {
       fetchData();
     }, []);
 
-    console.log(locationCTPData)
+    function startNavigation() {
+      // eslint-disable-next-line no-undef
+      Kakao.Navi.start({
+        name: searchResults[0].place_name,
+        x: Number(searchResults[0].x),
+        y: Number(searchResults[0].y),
+        coordType: 'wgs84',
+      });
+    }
 
     useEffect(() => {
       if(location_SIG === "" || location_SIG === "no") {
@@ -71,7 +78,7 @@ export function BestRestaurant() {
 
     }, [location_CTP, location_SIG]);
 
-    console.log(searchResults.map((item) => item.place_name))
+
 
   return (
     <div>
@@ -102,6 +109,13 @@ export function BestRestaurant() {
           style={{ marginLeft: 10, borderRadius: "0.375rem", borderWidth: 1}}
         >
           검색
+        </button>
+        <button 
+          type="submit" 
+          onClick={startNavigation}  
+          style={{ marginLeft: 10, borderRadius: "0.375rem", borderWidth: 1}}
+        >
+          길찾기
         </button>
       </div>
       {/* <div>
