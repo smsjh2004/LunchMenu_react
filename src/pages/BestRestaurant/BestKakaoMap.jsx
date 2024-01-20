@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react';
+import { Map } from 'react-kakao-maps-sdk';
+import { MapMarker } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap } from 'react-kakao-maps-sdk';
+import '../css/BestKakaoMap.css';
 
 export function BestKakaoMap({ searchPlace, searchResults, setSearchResults }) {
     const { kakao } = window;
     // const [searchResults, setSearchResults] = useState([]);
 
+    const [isOpen, setIsOpen] = useState(false)
+    const markerPosition = {
+        lat: 33.450701,
+        lng: 126.570667,
+    }
     useEffect(() => {
         var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
         const container = document.getElementById('map');
@@ -64,14 +73,80 @@ export function BestKakaoMap({ searchPlace, searchResults, setSearchResults }) {
             });
 
             kakao.maps.event.addListener(marker, 'click', function () {
-                infowindow.setContent('<div style="padding:50px;font-size:12px;width: "6500px">' + place.place_name + '</div>');
+                // infowindow.setContent('<div style="padding:50px;font-size:12px;width: "6500px">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
             });
         }
+        
     }, [kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.ERROR, kakao.maps.services.Status.OK, kakao.maps.services.Status.ZERO_RESULT, searchPlace, setSearchResults]);
 
 
+    // return (
+    //     <div id="map" style={{ width: "100%", maxWidth: 750, height: 500, margin: 0, margin: "auto"}}></div>
+    // )
     return (
-        <div id="map" style={{ width: "100%", maxWidth: 750, height: 500, margin: 0, margin: "auto"}}></div>
-    )
+        <>
+          <Map // 지도를 표시할 Container
+            id={`map`}
+            center={{
+              // 지도의 중심좌표
+              lat: 33.451475,
+              lng: 126.570528,
+            }}
+            style={{
+              // 지도의 크기
+              width: "100%",
+              height: "550px",
+            }}
+            level={3} // 지도의 확대 레벨
+          >
+            <MapMarker position={markerPosition} onClick={() => setIsOpen(true)} />
+            {isOpen && (
+              <CustomOverlayMap position={markerPosition}>
+                <div className="wrap">
+                  <div className="info">
+                    <div className="title">
+                      카카오 스페이스닷원
+                      <div
+                        className="close"
+                        onClick={() => setIsOpen(false)}
+                        title="닫기"
+                      ></div>
+                    </div>
+                    <div className="body">
+                      <div className="img">
+                        <img
+                          src="//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005"
+                          width="73"
+                          height="70"
+                          alt="카카오 스페이스닷원"
+                        />
+                      </div>
+                      <div className="desc">
+                        <div className="ellipsis">
+                          제주특별자치도 제주시 첨단로 242
+                        </div>
+                        <div className="jibun ellipsis">
+                          (우) 63309 (지번) 영평동 2181
+                        </div>
+                        <div>
+                          <a
+                            href="https://www.kakaocorp.com/main"
+                            target="_blank"
+                            className="link"
+                            rel="noreferrer"
+                          >
+                            홈페이지
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                ;
+              </CustomOverlayMap>
+            )}
+          </Map>
+        </>
+      )
 }
