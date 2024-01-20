@@ -3,6 +3,7 @@ import { getCTPAPI, getSIGAPI } from '../../core/Api';
 import { BestKakaoMap } from "./BestKakaoMap"
 import { HamButton } from "../SimpleLunch/HamButton"
 import { LocationSelector } from './LocationSelector';
+import { BestRestaurantModal } from './BestRestaurantModal';
 
 export function BestRestaurant() {
     const [InputText, setInputText] = useState('');
@@ -16,7 +17,7 @@ export function BestRestaurant() {
     // 읍면 데이터
     // const [locationADRIData, setLocationADRIData] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
-
+    const [showModal, setShowModal] = useState(false);
     const handleOnKeyPress = e => {
       if (e.key === 'Enter') {
         handleSubmit(e);
@@ -38,8 +39,8 @@ export function BestRestaurant() {
     }
 
     const locationFilter = locationSIGData.filter((item) => item.includes(location_CTP));
+    // const filterResults = searchResults.map((item) => item.place_name)
     // const locationFilter2 = locationADRIData.filter((item) => item.includes(location_SIG));
-
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -57,16 +58,6 @@ export function BestRestaurant() {
       fetchData();
     }, []);
 
-    function startNavigation() {
-      // eslint-disable-next-line no-undef
-      Kakao.Navi.start({
-        name: searchResults[0].place_name,
-        x: Number(searchResults[0].x),
-        y: Number(searchResults[0].y),
-        coordType: 'wgs84',
-      });
-    }
-
     useEffect(() => {
       if(location_SIG === "" || location_SIG === "no") {
         setLocation_SIG('')
@@ -77,7 +68,6 @@ export function BestRestaurant() {
       }
 
     }, [location_CTP, location_SIG]);
-
 
 
   return (
@@ -110,12 +100,19 @@ export function BestRestaurant() {
         >
           검색
         </button>
-        <button 
+        {/* <button 
           type="submit" 
           onClick={startNavigation}  
           style={{ marginLeft: 10, borderRadius: "0.375rem", borderWidth: 1}}
         >
           길찾기
+        </button> */}
+        <button 
+          type="submit" 
+          onClick={() => setShowModal(true)}  
+          style={{ marginLeft: 10, borderRadius: "0.375rem", borderWidth: 1}}
+        >
+          리스트
         </button>
       </div>
       {/* <div>
@@ -125,8 +122,8 @@ export function BestRestaurant() {
             )
           })}
       </div> */}
-
-      <BestKakaoMap searchPlace={Place} searchResults={searchResults} setSearchResults={setSearchResults}/>
+      {showModal && <BestRestaurantModal show={showModal} onClose={() => setShowModal(false)} filteredList={searchResults}/>}
+      <BestKakaoMap searchPlace={Place} searchResults={searchResults} setSearchResults={setSearchResults} />
     </div>
   )
 }

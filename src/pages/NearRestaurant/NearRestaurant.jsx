@@ -17,11 +17,11 @@ export function NearRestaurant() {
       };
 
       const [searchTerm, setSearchTerm] = useState('');
-      const history = useNavigate();
 
       useEffect(() => {
           setSearchTerm(place)
-      }, [place])
+      }, [place]);
+
       const handleSearch = () => {
         const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`;
         if(place !== undefined) {
