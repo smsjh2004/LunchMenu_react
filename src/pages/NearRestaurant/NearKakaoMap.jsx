@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
+import "./NearKakaoMap.css";
 
-export function NearKakaoMap({ list, setList }) {
+export function NearKakaoMap({ setList }) {
     const { kakao } = window;
-    console.log(list)
     useEffect(() => {
         const container = document.getElementById('map');
         const options = {
@@ -50,16 +50,40 @@ export function NearKakaoMap({ list, setList }) {
                 setList(data)
             }
         }
-
         function displayMarker(place) {
             const marker = new kakao.maps.Marker({
                 map: map,
                 position: new kakao.maps.LatLng(place.y, place.x),
             });
-
+        
             kakao.maps.event.addListener(marker, 'click', function () {
-                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                const content = '<div class="wrap">' +
+                    '    <div class="info">' +
+                    '        <div class="title">' +
+                    `            ${place.place_name}` +
+                    '            <div class="closeBtn" title="닫기">x</div>' +
+                    '        </div>' +
+                    '        <div class="body">' +
+                    '            <div class="desc">' +
+                    `                <div class="ellipsis">${place.address_name}</div>` +
+                    `                <div><a href="https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}" target="_blank" class="link">길찾기</a></div>` +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </div>' +
+                    '</div>';
+        
+                infowindow.setContent(content);
                 infowindow.open(map, marker);
+        
+                // 닫기 버튼에 onClick 이벤트 추가
+                const closeBtn = document.querySelector('.closeBtn');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function () {
+                        if (infowindow) {
+                            infowindow.close();
+                        }
+                    });
+                }
             });
         }
     }, [kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, setList]);

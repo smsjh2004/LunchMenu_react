@@ -36,12 +36,12 @@ export function NearRestaurant() {
             <HamButton currectPage={2} />
             <div style={{ textAlign: "center"}}>
             <h1>주변식당뽑기 페이지</h1>
-            <NearKakaoMap list={list} setList={setList} />
+            <NearKakaoMap setList={setList} />
             <h1>{place}</h1>
             <div style={{ marginTop: 30}}>
                 <Button onClick={handleClick} >뽑기</Button>
                 <Button onClick={() => setOpen(true)} style={{ marginLeft: 20 }}>가게 리스트</Button>
-                <Button onClick={handleSearch} style={{ marginLeft: 20 }}>검색</Button>
+                {place && <Button onClick={handleSearch} style={{ marginLeft: 20 }}>검색</Button>}
             </div>
             <NearRestaurantModal show={open} onClose={() => setOpen(false)} list={list} />
             </div>

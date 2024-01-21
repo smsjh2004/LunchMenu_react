@@ -1,0 +1,74 @@
+.wrap {
+    position: absolute;
+    left: 0;
+    width: 230px;
+    height: 132px;
+    bottom: -35px;
+    margin-left: -45px;
+    text-align: left;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.wrap * {
+    padding: 0;
+    margin: 0;
+}
+
+.wrap .info {
+    height: 120px;
+    border-radius: 5px;
+    border-bottom: 2px solid #ccc;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+    border: 0;
+    box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+    background: black;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info .closeBtn {
+    position: absolute;
+    top: -10px;
+    right: 30px;
+    color: white;
+    width: 17px;
+    height: 17px;
+}
+
+.info .closeBtn:hover {
+    cursor: pointer;
+}
+
+.info .body {
+    position: relative;
+    overflow: hidden;
+}
+
+.info .desc {
+    position: relative;
+    margin: 5px;
+    padding: 10px;
+}
+
+.desc .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+}
+
+
+.info .link {
+    color: #5085BB;
+}

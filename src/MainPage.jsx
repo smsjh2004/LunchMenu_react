@@ -1,7 +1,6 @@
 import "./pages/css/MainPage.css";
 import Button from 'react-bootstrap/Button';
 
-
 export function MainPage() {
 
     return (
