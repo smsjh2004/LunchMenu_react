@@ -18,6 +18,7 @@ export function BestRestaurant() {
     // const [locationADRIData, setLocationADRIData] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [showModal, setShowModal] = useState(false);
+
     const handleOnKeyPress = e => {
       if (e.key === 'Enter') {
         handleSubmit(e);
@@ -29,7 +30,8 @@ export function BestRestaurant() {
     }
   
     const handleSubmit = (e) => {
-      e.preventDefault()
+      e.preventDefault();
+
       if(location_SIG === "") {
         setPlace(`${location_CTP} ${InputText}`);
       } else if (location_SIG !== "no"){
@@ -88,7 +90,7 @@ export function BestRestaurant() {
         />
         <input 
           placeholder="키워드를 입력하세요" 
-          onKeyPress={handleOnKeyPress}
+          onKeyUp={handleOnKeyPress}
           onChange={onChange} 
           value={InputText} 
           style={{ marginBottom: 20, borderRadius: "0.375rem", borderWidth: 1,borderColor: "gray"}} 
@@ -100,13 +102,6 @@ export function BestRestaurant() {
         >
           검색
         </button>
-        {/* <button 
-          type="submit" 
-          onClick={startNavigation}  
-          style={{ marginLeft: 10, borderRadius: "0.375rem", borderWidth: 1}}
-        >
-          길찾기
-        </button> */}
         <button 
           type="submit" 
           onClick={() => setShowModal(true)}  
@@ -115,13 +110,6 @@ export function BestRestaurant() {
           리스트
         </button>
       </div>
-      {/* <div>
-      {searchResults.map((item) => {
-            return (
-              <h1>{item.place_name}</h1>
-            )
-          })}
-      </div> */}
       {showModal && <BestRestaurantModal show={showModal} onClose={() => setShowModal(false)} filteredList={searchResults}/>}
       <BestKakaoMap searchPlace={Place} searchResults={searchResults} setSearchResults={setSearchResults} />
     </div>

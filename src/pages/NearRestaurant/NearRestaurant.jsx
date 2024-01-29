@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { HamButton } from "../SimpleLunch/HamButton";
 import { Button } from "react-bootstrap";
 import { NearRestaurantModal } from "./NearRestaurantModal";
-import { useNavigate } from 'react-router-dom';
 
 export function NearRestaurant() {
     const [list, setList] = useState([]);

@@ -1,6 +1,6 @@
 {
   "name": "lunch_menu",
-  "homepage": "/Lunch",
+  "homepage": "/Lunch/SimpleLunch",
   "version": "0.1.0",
   "private": true,
   "compilerOptions": {
