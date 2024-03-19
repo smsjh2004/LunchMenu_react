@@ -5,6 +5,8 @@ import { HamButton } from './HamButton';
 import foods from "../../foodData.json";
 import "./SimpleLunch.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios"
+
 
 export function SimpleLunch() {
   const [todayMenu, setTodayMenu] = useState("");
@@ -20,6 +22,24 @@ export function SimpleLunch() {
       setExcludedCategories(updatedCategories);
     }
   };
+
+
+
+  axios.get("http://localhost:4001/Lunch/SimpleLunch", {}) // {} 빈 객체 전달
+  // index.js에 있는 result를 res가 전달 받음
+  .then((res) => {
+    // res에 뭐가 들어있는지 확인하고 싶으면 콘솔로그 찍기
+    console.log(`res=> ${res}`);
+    const { data } = res;
+    console.log("data ==>", data);
+  })
+  .catch((e) => {
+    console.error(e);
+  });
+
+
+
+  
 
   const filteredFoods = foods.filter(
     (data) => !excludedCategories.includes(data.category)
