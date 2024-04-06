@@ -8,6 +8,9 @@ export function NearRestaurant() {
     const [list, setList] = useState([]);
     const [place, setPlace] = useState();
     const [open, setOpen] = useState(false);
+    const [address, setAddress] = useState();
+
+    console.log(address)
 
     const handleClick = () => {
         const randomIndex = Math.floor(Math.random() * list.length);
@@ -35,7 +38,8 @@ export function NearRestaurant() {
             <HamButton currectPage={2} />
             <div style={{ textAlign: "center"}}>
             <h1>주변식당뽑기 페이지</h1>
-            <NearKakaoMap setList={setList} />
+            <h4>현재위치: {address}</h4>
+            <NearKakaoMap setList={setList} address={address} setAddress={setAddress}/>
             <h1>{place}</h1>
             <div style={{ marginTop: 30}}>
                 <Button onClick={handleClick} >뽑기</Button>

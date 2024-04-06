@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import "./NearKakaoMap.css";
 
-export function NearKakaoMap({ setList }) {
+export function NearKakaoMap({ setList, address, setAddress }) {
     const { kakao } = window;
+
     useEffect(() => {
         const container = document.getElementById('map');
         const options = {
@@ -12,12 +13,39 @@ export function NearKakaoMap({ setList }) {
         const map = new kakao.maps.Map(container, options);
         const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
+        // 현재 지도의 중심 좌표를 가져오는 함수
+        function getCurrentCenter() {
+            const center = map.getCenter();
+            const lat = center.getLat();
+            const lng = center.getLng();
+            return new kakao.maps.LatLng(lat, lng);
+        }
+
+        // 현재 지도의 주소를 콘솔에 출력하는 함수
+        function logCurrentAddress() {
+            const geocoder = new kakao.maps.services.Geocoder();
+            const center = getCurrentCenter();
+
+            geocoder.coord2Address(center.getLng(), center.getLat(), function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    console.log("현재 지도가 보여주고 있는 주소:", result[0].address.address_name);
+                    setAddress(result[0].address.address_name);
+                }
+            });
+        }
+
+        // 지도의 중심 좌표가 변경될 때마다 주소를 콘솔에 출력
+        kakao.maps.event.addListener(map, 'center_changed', logCurrentAddress);
+
+        // 초기에 한번 현재 주소를 출력
+        logCurrentAddress();
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
                 const locPosition = new kakao.maps.LatLng(lat, lon);
-
+                console.log("locPosition", locPosition)
                 const message = '<div style="padding:5px;">여기에 계신가요?!</div>';
                 displayMarker(locPosition, message);
                 map.setCenter(locPosition);
@@ -30,6 +58,8 @@ export function NearKakaoMap({ setList }) {
             displayMarker(locPosition, message);
         }
 
+        var geocoder = new kakao.maps.services.Geocoder();
+        console.log("geocoder", geocoder)
         function searchNearbyRestaurants(location) {
             const ps = new kakao.maps.services.Places(map);
             ps.keywordSearch('맛집', placesSearchCB, {
